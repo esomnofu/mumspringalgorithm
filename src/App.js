@@ -4,7 +4,7 @@ import RequestResults from "./components/RegistryResults";
 import CONSTANTS from "./constants/Categories";
 import { BrowserRouter, Route } from "react-router-dom";
 
-
+import FORMCONSTANTS from "./constants/FORMCONSTANTS";
 
 //Import Model
 import RegistryCreator from "./model/RegistryCreator";
@@ -13,18 +13,18 @@ class App extends Component {
   state = {
     //final Arr of objs returned to registry after logic
     cart: [],
-    type: ""
+    type: "",
+    formAnswers: {
+      location: "nigeria",
+      gender: "girl",
+      budget: 1,
+      wantsStroller: "yes"
+    }
   };
 
-  generateSKU = () => {
-    var text = "";
-    var possible =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 14; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-  };
+  componentDidMount() {
+    this.testRegistryCreator();
+  }
 
   decideExpectantMotherFactory = object => {
     switch (object.shoppingStrategy) {
@@ -157,10 +157,29 @@ class App extends Component {
   //KAITECH MUMSPRING TESTING
   //KAITECH MUMSPRING TESTING
   testRegistryCreator = () => {
+    //grab registryArray From Constants
+    const { registryArray } = FORMCONSTANTS;
+    // RegistryCreator creator = new RegistryCreator(registryArray);
+    //Pass registryArray and formAnswers to Class
+    let registryCreatorHandler = new RegistryCreator(
+      registryArray,
+      this.state.formAnswers
+    );
 
-    
-
-    RegistryCreator creator = new RegistryCreator();
+    //Start Calling Class Methods
+    //First - Add All AcrossBoard
+    registryCreatorHandler.addAcrossBoardProducts();
+    registryCreatorHandler.addAcrossBoardGenderProducts();
+    registryCreatorHandler.addAcrossBoardGeographyProducts();
+    registryCreatorHandler.addBudgetBasedProducts();
+    registryCreatorHandler.addCarSeatToysProducts();
+    registryCreatorHandler.addInfantCarSeatProducts();
+    console.log(
+      "Final Array Products for these form answers combination is: ",
+      this.state.formAnswers
+    );
+    console.log("");
+    console.log(registryCreatorHandler.finalRegistryArray);
   };
 
   render() {

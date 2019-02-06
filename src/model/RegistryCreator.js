@@ -2,7 +2,7 @@ import FORMCONSTANTS from "../constants/FORMCONSTANTS";
 
 class RegistryCreator {
   constructor(registryArrays, formAnswers) {
-    super(registryArrays, formAnswers);
+    // super(registryArrays, formAnswers);
 
     const { location, gender, budget, wantsStroller } = formAnswers;
 
