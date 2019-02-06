@@ -2,9 +2,7 @@ import FORMCONSTANTS from "../constants/FORMCONSTANTS";
 
 class RegistryCreator {
   constructor(registryArrays, formAnswers) {
-    // super(registryArrays, formAnswers);
-
-    const { location, gender, budget, wantsStroller } = formAnswers;
+    const { location, gender, budget, wantsStroller, noOfbabies } = formAnswers;
 
     let {
       ABNC,
@@ -28,6 +26,7 @@ class RegistryCreator {
     this.gender = gender;
     this.budget = budget;
     this.wantsStroller = wantsStroller;
+    this.noOfbabies = noOfbabies;
 
     this.acrossBoardArray = ABNC;
     this.acrossBoardBoysArray = ABB;
@@ -49,9 +48,7 @@ class RegistryCreator {
   }
 
   addAcrossBoardProducts = () => {
-    this.finalRegistryArray = this.finalRegistryArray.concat(
-      this.acrossBoardArray
-    );
+    this.addItemsPerChildTrueToFinalArray(this.acrossBoardArray);
   };
 
   addAcrossBoardGenderProducts = () => {
@@ -87,22 +84,19 @@ class RegistryCreator {
     const { BUDGET } = FORMCONSTANTS;
     switch (this.budget) {
       case BUDGET.THRIFTY:
-        this.finalRegistryArray = this.finalRegistryArray.concat(
-          this.thriftyArray
-        );
+        this.addItemsPerChildTrueToFinalArray(this.thriftyArray);
         break;
 
       case BUDGET.BALANCEDBUDGET:
-        this.finalRegistryArray = this.finalRegistryArray.concat(
+        this.addItemsPerChildAndPerChildMinusOneToFinalArray(
           this.balancedBudgetArray
         );
         break;
 
       case BUDGET.QUALITYOVERPRICE:
-        this.finalRegistryArray = this.finalRegistryArray.concat(
+        this.addItemsPerChildAndPerChildMinusOneToFinalArray(
           this.qualityOverPriceArray
         );
-
         break;
 
       default:
@@ -133,15 +127,16 @@ class RegistryCreator {
 
     if (this.birthLocation.toLowerCase() == "nigeria") {
       //Case Stroller
+
       if (this.wantsStroller) {
         const ifQoP = this.budget == BUDGET.QUALITYOVERPRICE;
 
         if (ifQoP) {
-          this.finalRegistryArray = this.finalRegistryArray.concat(
+          this.addItemsNotMoreThanTwoToFinalArray(
             this.qualityOverPriceInfantCarSeatsAndStrollerArray
           );
         } else {
-          this.finalRegistryArray = this.finalRegistryArray.concat(
+          this.addItemsNotMoreThanTwoToFinalArray(
             this.otherInfantCarSeatAndStrollerArray
           );
         }
@@ -150,22 +145,21 @@ class RegistryCreator {
       else {
         switch (this.budget) {
           case BUDGET.THRIFTY:
-            this.finalRegistryArray = this.finalRegistryArray.concat(
+            this.addItemsNotMoreThanTwoToFinalArray(
               this.thriftyInfantCarSeatsArray
             );
             break;
 
           case BUDGET.BALANCEDBUDGET:
-            this.finalRegistryArray = this.finalRegistryArray.concat(
+            this.addItemsNotMoreThanTwoToFinalArray(
               this.balancedBudgetInfantCarSeatsArray
             );
             break;
 
           case BUDGET.QUALITYOVERPRICE:
-            this.finalRegistryArray = this.finalRegistryArray.concat(
+            this.addItemsNotMoreThanTwoToFinalArray(
               this.qualityOverPriceInfantCarSeatsArray
             );
-
             break;
 
           default:
@@ -173,6 +167,66 @@ class RegistryCreator {
         }
       }
     }
+  };
+
+  addItemsPerChildTrueToFinalArray = itemArray => {
+    itemArray.forEach(item => {
+      const meta = item.meta;
+      let nosOfBabies = this.noOfbabies;
+      if (meta !== null) {
+        while (nosOfBabies > 0) {
+          this.finalRegistryArray.push(item);
+          nosOfBabies -= 1;
+        }
+      } else {
+        this.finalRegistryArray.push(item);
+      }
+    });
+  };
+
+  addItemsPerChildAndPerChildMinusOneToFinalArray = itemArray => {
+    itemArray.forEach(item => {
+      const meta = item.meta;
+      let nosOfBabies = this.noOfbabies;
+      if (meta !== null) {
+        if (meta.per_child_minus_one) {
+          while (nosOfBabies > 1) {
+            this.finalRegistryArray.push(item);
+            nosOfBabies -= 1;
+          }
+        }
+
+        if (meta.per_child) {
+          while (nosOfBabies > 0) {
+            this.finalRegistryArray.push(item);
+            nosOfBabies -= 1;
+          }
+        }
+      } else {
+        this.finalRegistryArray.push(item);
+      }
+    });
+  };
+
+  addItemsNotMoreThanTwoToFinalArray = itemArray => {
+    const { CARSEAT } = FORMCONSTANTS;
+    itemArray.forEach(item => {
+      const meta = item.meta;
+      let nosOfBabies =
+        this.noOfbabies > CARSEAT.MAXIMUM
+          ? CARSEAT.MAXIMUM + 1
+          : this.noOfbabies;
+      if (meta !== null) {
+        if (meta.per_child_not_more_than_two) {
+          while (nosOfBabies > 1) {
+            this.finalRegistryArray.push(item);
+            nosOfBabies -= 1;
+          }
+        }
+      } else {
+        this.finalRegistryArray.push(item);
+      }
+    });
   };
 }
 

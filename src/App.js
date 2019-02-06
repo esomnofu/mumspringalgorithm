@@ -16,9 +16,10 @@ class App extends Component {
     type: "",
     formAnswers: {
       location: "nigeria",
-      gender: "girl",
-      budget: 1,
-      wantsStroller: "yes"
+      gender: "boy",
+      budget: 2,
+      wantsStroller: true,
+      noOfbabies: 3
     }
   };
 

@@ -1,7 +1,7 @@
 const AB1 = {
   name: "Lenny Cot by Pinolino",
   sku: "WEHFNKPAY0E46J",
-  meta: null
+  meta: { per_child: true }
 };
 
 const AB2 = {

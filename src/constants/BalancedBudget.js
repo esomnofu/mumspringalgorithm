@@ -7,7 +7,7 @@ const AB1 = {
 const AB2 = {
   name: "Cot Bed Viktoria - 1 piece",
   sku: "INVIJ713CIIKMM",
-  meta: null
+  meta: { per_child_minus_one: true }
 };
 
 const AB3 = {
@@ -31,7 +31,7 @@ const AB5 = {
 const AB6 = {
   name: "Joie, Serina Swivel",
   sku: "E5AROFGF8Q5A3K",
-  meta: null
+  meta: { per_child: true }
 };
 
 const BALANCEDBUDGET = [AB1, AB2, AB3, AB4, AB5, AB6];

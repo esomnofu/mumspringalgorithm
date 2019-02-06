@@ -29,6 +29,10 @@ const FORMCONSTANTS = {
     QUALITYOVERPRICE: 3
   },
 
+  CARSEAT: {
+    MAXIMUM: 2
+  },
+
   registryArray: {
     ABNC: ACROSSBOARDNOCONDITIONS,
     ABB: ACROSSBOARDBOYS,

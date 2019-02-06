@@ -1,7 +1,7 @@
 const AB1 = {
   name: "Joie Everystage FX",
   sku: "RKIMSMLN1B2WTB",
-  meta: null
+  meta: { per_child_not_more_than_two: true }
 };
 
 const QUALITYOVERPRICEINFANTCARSEATS = [AB1];

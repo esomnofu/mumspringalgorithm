@@ -1,13 +1,13 @@
 const AB1 = {
   name: "Huggies Snug & Dry Diapers",
   sku: "5H4S8P3OK0665P",
-  meta: { size: 2 }
+  meta: { size: 2, quantity: 1 }
 };
 
 const AB2 = {
   name: "Huggies Snug & Dry Diapers",
   sku: "7GMKNMZ88KQRAT",
-  meta: { size: 3 }
+  meta: { size: 3, quantity: 2 }
 };
 
 const AB3 = {

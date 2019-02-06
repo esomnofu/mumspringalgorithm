@@ -7,7 +7,7 @@ const AB1 = {
 const AB2 = {
   name: "Cot Bed Florentina - 1 piece",
   sku: "5GX2H45HMI8T7R",
-  meta: null
+  meta: { per_child_minus_one: true }
 };
 
 const AB3 = {
@@ -37,7 +37,7 @@ const AB6 = {
 const AB7 = {
   name: "Joie, Serina 2-in-1 Swing/Rocker",
   sku: "GQCNCSLFXTWJ8C",
-  meta: null
+  meta: { per_child: true }
 };
 
 const AB8 = {
@@ -49,7 +49,7 @@ const AB8 = {
 const AB9 = {
   name: "Rose et Chocolat Uniz White",
   sku: "T30BZW1ZNBESXK",
-  meta: null
+  meta: { per_child: true }
 };
 
 const QUALITYOVERPRICE = [AB1, AB2, AB3, AB4, AB5, AB6, AB7, AB8, AB9];

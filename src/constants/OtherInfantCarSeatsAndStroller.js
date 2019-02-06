@@ -1,7 +1,7 @@
 const AB1 = {
   name: "Joie muze travel system",
   sku: "A34TOF0OM1D5BG",
-  meta: null
+  meta: { per_child_not_more_than_two: true }
 };
 
 const OTHERINFANTCARSEATSANDSTROLLER = [AB1];

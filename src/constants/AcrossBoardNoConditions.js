@@ -7,7 +7,7 @@ const AB1 = {
 const AB2 = {
   name: "Jersey Fitted Sheet For Cot Bed - Pack of 2",
   sku: "CUCLKZGHZD8NF1",
-  meta: { color: "grey" }
+  meta: { color: "grey", per_child : true }
 };
 
 const AB3 = {

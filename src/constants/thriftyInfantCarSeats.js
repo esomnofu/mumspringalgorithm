@@ -1,7 +1,7 @@
 const AB1 = {
   name: "Joie juva classic O+ car seat",
   sku: "FEBECDWTXJSAT5",
-  meta: null
+  meta: { per_child_not_more_than_two: true }
 };
 
 const THRIFTERINFANTCARSEATS = [AB1];
