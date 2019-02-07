@@ -16,10 +16,10 @@ class App extends Component {
     type: "",
     formAnswers: {
       location: "nigeria",
-      gender: "boy",
-      budget: 2,
+      gender: "girl",
+      budget: FORMCONSTANTS.BUDGET.QUALITYOVERPRICE,
       wantsStroller: true,
-      noOfbabies: 3
+      noOfbabies: 5
     }
   };
 

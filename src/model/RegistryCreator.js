@@ -70,11 +70,9 @@ class RegistryCreator {
     const isNigeria = this.birthLocation.toLowerCase() == "nigeria";
 
     if (isNigeria) {
-      this.finalRegistryArray = this.finalRegistryArray.concat(
-        this.acrossBoardNigeriaArray
-      );
+      this.addItemsPerChildTrueToFinalArray(this.acrossBoardNigeriaArray);
     } else {
-      this.finalRegistryArray = this.finalRegistryArray.concat(
+      this.addItemsPerChildTrueToFinalArray(
         this.acrossBoardOutsideNigeriaArray
       );
     }
@@ -88,15 +86,11 @@ class RegistryCreator {
         break;
 
       case BUDGET.BALANCEDBUDGET:
-        this.addItemsPerChildAndPerChildMinusOneToFinalArray(
-          this.balancedBudgetArray
-        );
+        this.addItemsPerChildTrueToFinalArray(this.balancedBudgetArray);
         break;
 
       case BUDGET.QUALITYOVERPRICE:
-        this.addItemsPerChildAndPerChildMinusOneToFinalArray(
-          this.qualityOverPriceArray
-        );
+        this.addItemsPerChildTrueToFinalArray(this.qualityOverPriceArray);
         break;
 
       default:
@@ -111,13 +105,9 @@ class RegistryCreator {
       const ifThrifty = this.budget == BUDGET.THRIFTY;
 
       if (ifThrifty) {
-        this.finalRegistryArray = this.finalRegistryArray.concat(
-          this.thriftyCarSeatToysArray
-        );
+        this.addItemsPerChildTrueToFinalArray(this.thriftyCarSeatToysArray);
       } else {
-        this.finalRegistryArray = this.finalRegistryArray.concat(
-          this.otherCarSeatToysArray
-        );
+        this.addItemsPerChildTrueToFinalArray(this.otherCarSeatToysArray);
       }
     }
   };
@@ -132,11 +122,11 @@ class RegistryCreator {
         const ifQoP = this.budget == BUDGET.QUALITYOVERPRICE;
 
         if (ifQoP) {
-          this.addItemsNotMoreThanTwoToFinalArray(
+          this.addItemsPerChildTrueToFinalArray(
             this.qualityOverPriceInfantCarSeatsAndStrollerArray
           );
         } else {
-          this.addItemsNotMoreThanTwoToFinalArray(
+          this.addItemsPerChildTrueToFinalArray(
             this.otherInfantCarSeatAndStrollerArray
           );
         }
@@ -145,19 +135,19 @@ class RegistryCreator {
       else {
         switch (this.budget) {
           case BUDGET.THRIFTY:
-            this.addItemsNotMoreThanTwoToFinalArray(
+            this.addItemsPerChildTrueToFinalArray(
               this.thriftyInfantCarSeatsArray
             );
             break;
 
           case BUDGET.BALANCEDBUDGET:
-            this.addItemsNotMoreThanTwoToFinalArray(
+            this.addItemsPerChildTrueToFinalArray(
               this.balancedBudgetInfantCarSeatsArray
             );
             break;
 
           case BUDGET.QUALITYOVERPRICE:
-            this.addItemsNotMoreThanTwoToFinalArray(
+            this.addItemsPerChildTrueToFinalArray(
               this.qualityOverPriceInfantCarSeatsArray
             );
             break;
@@ -171,15 +161,39 @@ class RegistryCreator {
 
   addItemsPerChildTrueToFinalArray = itemArray => {
     itemArray.forEach(item => {
-      const meta = item.meta;
-      let nosOfBabies = this.noOfbabies;
-      if (meta !== null) {
-        while (nosOfBabies > 0) {
-          this.finalRegistryArray.push(item);
-          nosOfBabies -= 1;
+      const originalQuantity = item.meta.quantity;
+      const isSameAsChildQuantity = originalQuantity == "n";
+      const shouldImplementQuantityLimit = item.meta.quantity_limit > 0;
+      const quantityLimit = item.meta.quantity_limit;
+
+      //if the quantity == "n"
+      if (isSameAsChildQuantity) {
+        //set the items quantity to the same quantity as the number of children the person is having
+        let finalQuantity = this.noOfbabies + item.meta.quantity_modifier;
+        finalQuantity =
+          shouldImplementQuantityLimit && finalQuantity > quantityLimit
+            ? quantityLimit
+            : finalQuantity;
+
+        if (finalQuantity > 0) {
+          for (let i = 0; i < finalQuantity; i++) {
+            const copyItem = Object.assign({}, item);
+            copyItem.quantity = 1;
+            this.finalRegistryArray.push(copyItem);
+          }
         }
       } else {
-        this.finalRegistryArray.push(item);
+        let finalQuantity = originalQuantity + item.meta.quantity_modifier;
+        finalQuantity =
+          shouldImplementQuantityLimit && finalQuantity > quantityLimit
+            ? quantityLimit
+            : finalQuantity;
+
+        for (let i = 0; i < finalQuantity; i++) {
+          const copyItem = Object.assign({}, item);
+          copyItem.quantity = 1;
+          this.finalRegistryArray.push(copyItem);
+        }
       }
     });
   };

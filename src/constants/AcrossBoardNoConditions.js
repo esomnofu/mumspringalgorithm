@@ -1,101 +1,121 @@
-const AB1 = {
+// import FORMCONSTANTS from "./FORMCONSTANTS";
+
+const DEFAULT_META = {
+  quantity: 1,
+  quantity_modifier: 0,
+  quantity_limit: -1
+};
+
+let AB1 = {
   name: "Mattress 140 x 70",
   sku: "479LCQO1LEC0VV",
-  meta: null
+  meta: {
+    quantity: 1,
+    quantity_modifier: 0
+  }
 };
 
-const AB2 = {
+let AB2 = {
   name: "Jersey Fitted Sheet For Cot Bed - Pack of 2",
   sku: "CUCLKZGHZD8NF1",
-  meta: { color: "grey", per_child : true }
+  meta: { color: "grey", per_child: true, quantity: "n", quantity_modifier: 0 }
 };
 
-const AB3 = {
+let AB3 = {
   name: "Infantino flip 4-in-1convertible carrier",
   sku: "NL6OB3BWGSUSZ7",
   meta: null
 };
 
-const AB4 = {
+let AB4 = {
   name: "Lamaze freddie the firefly gym",
   sku: "65XV3F9D1MZZ3X",
   meta: null
 };
 
-const AB5 = {
+let AB5 = {
   name: "summer infant 4-in-1 super seat neutral",
   sku: "T55SML81MFLIHT",
   meta: null
 };
 
-const AB6 = {
+let AB6 = {
   name: "Harry and Rose baby bath set",
   sku: "SOA1MBWXOSVT9O",
   meta: null
 };
 
-const AB7 = {
+let AB7 = {
   name: "Harry and Rose baby soft lotion",
   sku: "SQSX9IU0AKSKRR",
-  meta: null
+  meta: {
+    quantity: 3,
+    quantity_modifier: 0
+  }
 };
 
-const AB8 = {
+let AB8 = {
   name: "Harry and Rose baby hair and body wash",
   sku: "H6P6MEEP8SE3HR",
-  meta: null
+  meta: {
+    quantity: 2,
+    quantity_modifier: 0
+  }
 };
 
-const AB9 = {
+let AB9 = {
   name: "Harry and Rose nappy spray",
   sku: "I9P1V2YBDM0PAA",
-  meta: null
+  meta: {
+    quantity: 3,
+    quantity_modifier: 0
+  }
 };
 
-const AB10 = {
+let AB10 = {
   name: "neat nursery co baby bath set + 3d grey print hooded towel",
   sku: "FV83OBY5KXDQMA",
   meta: null
 };
 
-const AB11 = {
+let AB11 = {
   name:
     "Tommee Tippee closer to nature grooming kit + Boon sprig vertical drying rack",
   sku: "KQ1RTW4A1D96WU",
   meta: null
 };
 
-const AB12 = {
+let AB12 = {
   name: "The teething egg",
   sku: "Z5JP7GNVA05UY5",
   meta: null
 };
 
-const AB13 = {
+let AB13 = {
   name: "Silicone pump and white stopper combo",
   sku: "0QZI6MRE5PCVA7",
   meta: null
 };
 
-const AB14 = {
+let AB14 = {
   name: "Tommee Tippee closer to nature newborn starter set",
   sku: "9OFOICY0CUXXTL",
   meta: null
 };
 
-const AB15 = {
+let AB15 = {
   name: "Bib and burp",
   sku: "9673MZK83O8X0K",
   meta: null
 };
 
-const AB16 = {
+let AB16 = {
   name: "Cosatto Supa change bag say hello",
   sku: "IWQ2SGCQIEVEB6",
   meta: null
 };
 
-const ACROSSBOARDNOCONDITIONS = [
+let tempArray = [
   AB1,
   AB2,
   AB3,
@@ -113,5 +133,20 @@ const ACROSSBOARDNOCONDITIONS = [
   AB15,
   AB16
 ];
+
+function setDefaultMetaIfEmpty(currVal, index, array) {
+  if (!currVal.meta) {
+    currVal.meta = DEFAULT_META;
+    return currVal;
+  }
+
+  return currVal;
+}
+
+function returnFullArray() {
+  return tempArray.map(setDefaultMetaIfEmpty);
+}
+
+const ACROSSBOARDNOCONDITIONS = returnFullArray();
 
 export default ACROSSBOARDNOCONDITIONS;

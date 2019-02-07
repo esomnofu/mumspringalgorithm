@@ -49,6 +49,12 @@ const FORMCONSTANTS = {
     TICS: THRIFTYINFANTCARSEATS,
     BBICS: BALANCEDBUDGETINFANTCARSEATS,
     QOPICS: QUALITYOVERPRICEINFANTCARSEATS
+  },
+
+  DEFAULT_META: {
+    quantity: 1,
+    quantity_modifier: 0,
+    quantity_limit: -1
   }
 };
 

@@ -1,3 +1,11 @@
+// import FORMCONSTANTS from "./FORMCONSTANTS";
+
+const DEFAULT_META = {
+  quantity: 1,
+  quantity_modifier: 0,
+  quantity_limit: -1
+};
+
 const AB1 = {
   name: "Florentina 2-piece nursery",
   sku: "PX2RG68YAGFF4Z",
@@ -7,7 +15,7 @@ const AB1 = {
 const AB2 = {
   name: "Cot Bed Florentina - 1 piece",
   sku: "5GX2H45HMI8T7R",
-  meta: { per_child_minus_one: true }
+  meta: { per_child_minus_one: true, quantity: "n", quantity_modifier: -1 }
 };
 
 const AB3 = {
@@ -37,7 +45,7 @@ const AB6 = {
 const AB7 = {
   name: "Joie, Serina 2-in-1 Swing/Rocker",
   sku: "GQCNCSLFXTWJ8C",
-  meta: { per_child: true }
+  meta: { per_child: true, quantity: "n", quantity_modifier: 0 }
 };
 
 const AB8 = {
@@ -49,9 +57,24 @@ const AB8 = {
 const AB9 = {
   name: "Rose et Chocolat Uniz White",
   sku: "T30BZW1ZNBESXK",
-  meta: { per_child: true }
+  meta: { per_child: true, quantity: "n", quantity_modifier: 0 }
 };
 
-const QUALITYOVERPRICE = [AB1, AB2, AB3, AB4, AB5, AB6, AB7, AB8, AB9];
+let tempArray = [AB1, AB2, AB3, AB4, AB5, AB6, AB7, AB8, AB9];
+
+function setDefaultMetaIfEmpty(currVal, index, array) {
+  if (!currVal.meta) {
+    currVal.meta = DEFAULT_META;
+    return currVal;
+  }
+
+  return currVal;
+}
+
+function returnFullArray() {
+  return tempArray.map(setDefaultMetaIfEmpty);
+}
+
+const QUALITYOVERPRICE = returnFullArray();
 
 export default QUALITYOVERPRICE;
